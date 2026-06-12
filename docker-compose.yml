@@ -1,0 +1,12 @@
+services:
+  nats:
+    image: nats:2.10-alpine
+    command: ["-js", "-m", "8222"]   # enable JetStream
+    ports:
+      - "4222:4222"     # client connections
+      - "8222:8222"     # monitoring/HTTP endpoint
+    volumes:
+      - nats_data:/data   # persist data for JetStream
+
+volumes:
+  nats_data:
