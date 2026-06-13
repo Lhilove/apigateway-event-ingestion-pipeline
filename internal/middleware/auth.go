@@ -2,19 +2,23 @@ package middleware
 
 import (
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Temporary in memory store. In production, this would be a database or secrets manager.
-var validAPIKeys = map[string]string{
-	"sk_live_abc123": "linux-agent-01",
-	"sk_live_def456": "windows-agent-01",
+// loadAPIKeys loads API keys from environment variables and returns a map of valid keys to agent names.
+func loadAPIKeys() map[string]string {
+	return map[string]string{
+		os.Getenv("API_KEY_LINUX_AGENT"):   "linux-agent-01",
+		os.Getenv("API_KEY_WINDOWS_AGENT"): "windows-agent-01",
+	}
 }
 
 // APIKeyAuth is a gin middleware that checks for a valid API key in the Authorization header.
 func APIKeyAuth() gin.HandlerFunc {
+	validAPIKeys := loadAPIKeys()
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 

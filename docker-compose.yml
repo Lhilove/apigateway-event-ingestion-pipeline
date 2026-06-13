@@ -8,5 +8,20 @@ services:
     volumes:
       - nats_data:/data   # persist data for JetStream
 
+
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ingestionworker
+      POSTGRES_PASSWORD: ingestionworker
+      POSTGRES_DB: secureflow_events
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+
 volumes:
   nats_data:
+  postgres-data:

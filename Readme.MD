@@ -41,7 +41,7 @@ Security Agent
 |-------------------|--------|
 | API Gateway       | Done |
 | Event Queue (NATS)| Done |
-| Ingestion Worker  | In progress |
+| Ingestion Worker  | Done |
 | Event Storage     | Planned |
 
 ## What the Gateway Does

@@ -2,15 +2,20 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/lhilove/apigateway-event-ingestion-pipeline/internal/handler"
 	"github.com/lhilove/apigateway-event-ingestion-pipeline/internal/middleware"
 	"github.com/lhilove/apigateway-event-ingestion-pipeline/internal/queue"
 )
 
 func main() {
-	publisher, err := queue.NewPublisher("nats://localhost:4222")
+	if err := godotenv.Load(); err != nil {
+		log.Println("no .env file found, using system environment variables")
+	}
+	publisher, err := queue.NewPublisher(os.Getenv("NATS_URL"))
 	if err != nil {
 		log.Fatalf("failed to connect to nats: %v", err)
 	}
