@@ -187,7 +187,7 @@ Look for `"messages": 1` (or however many requests sent) under the `EVENTS` stre
 
 ## Roadmap
 
-- [ ] Ingestion Worker (NATS consumer → PostgreSQL)
+
 - [ ] Event Storage schema & migrations
 - [ ] `/health` endpoint
 - [ ] Persistent NATS storage volume
